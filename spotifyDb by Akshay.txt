@@ -1,0 +1,127 @@
+create database spotifyDB;
+use spotifyDb;
+
+create table user
+ (
+     id INT unsigned NOT NULL AUTO_INCREMENT,
+     name VARCHAR(150) NOT NULL,
+     email VARCHAR(150) NOT NULL,
+     PRIMARY KEY (id)
+     );
+     
+      INSERT INTO user (name, email)
+     VALUES ("Akshay", "akshayraut3105@gmail.com"),
+     ("Shashi", "Shashighebad98@gmail.com"),
+     ("Rushi", "rushitayade71@gmail.com");
+     
+     create table playlist
+	 (
+     id  INT unsigned NOT NULL,
+     PlaylistName VARCHAR(100) NOT NULL,
+     PRIMARY KEY (PlaylistName),
+     FOREIGN KEY (id) REFERENCES user(id)
+	 );
+     
+     
+      INSERT INTO playlist (id, PlaylistName)
+     Values(1, "Favourites"),
+     (1, "Hollywood"),
+     (2, "Bollywood"),
+     (2, "Old"),
+     (3, "Romantic"),
+     (3, "unplugged");
+
+ create table track
+     (
+     Playlist VARCHAR(100) NOT NULL,
+     track VARCHAR(100) NOT NULL,
+     PRIMARY KEY (track),
+     FOREIGN KEY (Playlist) REFERENCES playlist(playlistName)
+    )
+     ;
+   INSERT INTO track (Playlist, track)
+     VALUES ("Favourites", "Shree Ram Janaki "),
+     ("Favourites", "Hey Ram"),
+     ("Hollywood", "levitating-dua lipa"),
+     ("Hollywood", "Shape of you"),
+     ("Bollywood", "Dil Aaj kal"),
+     ("Bollywood", "sanam teri kasam"),
+     ("Old", "tere jaisa yar kaha"),
+	("Old", "dil jane jigar "),
+     ("Romantic", "Lut gaye"),
+     ("Romantic", "Vaaste"),
+     ("unplugged", "Mann Bharrya"),
+     ("unplugged", "Ik Mulaqaat");   
+     
+ SELECT * FROM Playlist;  
+
+
+
+
+mysql> use spotifyDB;
+Database changed
+mysql> select * from user;
++----+--------+--------------------------+
+| id | name   | email                    |
++----+--------+--------------------------+
+|  1 | Akshay | akshayraut3105@gmail.com |
+|  2 | Shashi | Shashighebad98@gmail.com |
+|  3 | Rushi  | rushitayade71@gmail.com  |
+|  4 | Akshay | akshayraut3105@gmail.com |
+|  5 | Shashi | Shashighebad98@gmail.com |
+|  6 | Rushi  | rushitayade71@gmail.com  |
+|  7 | Akshay | akshayraut3105@gmail.com |
+|  8 | Shashi | Shashighebad98@gmail.com |
+|  9 | Rushi  | rushitayade71@gmail.com  |
++----+--------+--------------------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from Playlist;
++----+--------------+
+| id | PlaylistName |
++----+--------------+
+|  1 | Favourites   |
+|  1 | Hollywood    |
+|  2 | Bollywood    |
+|  2 | Old          |
+|  3 | Romantic     |
+|  3 | unplugged    |
++----+--------------+
+6 rows in set (0.07 sec)
+
+mysql> select * from track;
++------------+---------------------+
+| Playlist   | track               |
++------------+---------------------+
+| Bollywood  | Dil Aaj kal         |
+| Bollywood  | sanam teri kasam    |
+| Favourites | Hey Ram             |
+| Favourites | Shree Ram Janaki    |
+| Hollywood  | levitating-dua lipa |
+| Hollywood  | Shape of you        |
+| Old        | dil jane jigar      |
+| Old        | tere jaisa yar kaha |
+| Romantic   | Lut gaye            |
+| Romantic   | Vaaste              |
+| unplugged  | Ik Mulaqaat         |
+| unplugged  | Mann Bharrya        |
++------------+---------------------+
+12 rows in set (0.07 sec)
+
+mysql> select user.name,Playlist.PlaylistName,track.track from user join playlist on user.id = Playlist.id join track on Playlist.PlaylistName = track.Playlist;
++--------+--------------+---------------------+
+| name   | PlaylistName | track               |
++--------+--------------+---------------------+
+| Akshay | Favourites   | Hey Ram             |
+| Akshay | Favourites   | Shree Ram Janaki    |
+| Akshay | Hollywood    | levitating-dua lipa |
+| Akshay | Hollywood    | Shape of you        |
+| Shashi | Bollywood    | Dil Aaj kal         |
+| Shashi | Bollywood    | sanam teri kasam    |
+| Shashi | Old          | dil jane jigar      |
+| Shashi | Old          | tere jaisa yar kaha |
+| Rushi  | Romantic     | Lut gaye            |
+| Rushi  | Romantic     | Vaaste              |
+| Rushi  | unplugged    | Ik Mulaqaat         |
+| Rushi  | unplugged    | Mann Bharrya        |
++--------+--------------+---------------------+
